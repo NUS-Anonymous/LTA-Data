@@ -47,7 +47,7 @@
 	});
 
 	// Load the station data. When the data comes back, create an overlay.
-		d3.json("BusStopLocation.json", function(data1) {
+		d3.json("MRTExit.json", function(data1) {
 		var overlay = new google.maps.OverlayView();
 		data1 = data1.features;
 		var numberOfBusStop= data1.length;
