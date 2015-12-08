@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A D3 map</title>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="neighborhoods.js"></script>
+  <script src = "rodents.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+  <script>
+var width = 700,
+    height = 580;
+
+var svg = d3.select( "body" )
+  .append( "svg" )
+  .attr( "width", width )
+  .attr( "height", height )
+  .attr("style","border:5px solid red");
+
+var g = svg.append( "g" );
+
+var albersProjection = d3.geo.albers()
+  .scale( 190000 )
+  .rotate( [71.090,0] )
+  .center( [0, 42.313] )
+  .translate( [width/2,height/2] );
+
+var geoPath =  d3.geo.path()
+    .projection( albersProjection );
+	
+	g.selectAll( "path" )
+	.data( neighborhoods_json.features )
+	.enter()
+	.append( "path" )
+	.attr("fill",function(d,i){
+	var value = neighborhoods_json.features[i].properties.density;
+	var minimum = 0;
+	var maximum = 20;
+    var ratio = 2 * (value-minimum) / (maximum - minimum);
+	ratio = Math.abs(ratio);
+    var b = parseInt(Math.max(0, 255*(1 - ratio)));
+	b = Math.abs(b);
+    var r = parseInt(Math.max(0, 255*(ratio - 1)));
+	r = Math.abs(r);
+    var g = parseInt(255 - b - r);
+	g = Math.abs(g);
+    return "rgb("+ r +"," + g + "," + b + ")";})
+	.attr( "d", geoPath );
+	
+var rodents = svg.append("g");
+
+rodents.selectAll("path")
+	.data(rodents_json.features)
+	.enter()
+	.append("path")
+	.style("background-image","#Map-Marker-Flag--Right-Chartreuse.png")
+	.attr("stroke","#999")
+	.attr("d",geoPath)
+	.on("click",function(){d3.select(this).remove();});
+		
+  </script>
+</body>
+</html>
