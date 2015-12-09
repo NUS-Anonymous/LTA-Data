@@ -12,7 +12,7 @@
 	<body>
 	<script>
 	//Auto refresh your page
-	//refresh();
+	refresh();
 	function refresh(){
 		setTimeout(function(){
 		window.location.reload(1);
@@ -20,10 +20,12 @@
 	}
 	</script>
 	<script>
-		
+	var color = getRandomColor(color);
+	console.log(color);
+	
 	var size = 20;
 	
-	var height = 500, width = 500;
+	var height = 500, width = 1000;
 	//populate new data input with changing size, height and width;
 	//var theData = populateData(width,height,size);
 	var theData = heartData();
@@ -31,7 +33,9 @@
 						.attr("width",width)
 						.attr("height",height)
 						.attr("transform", "translate(80,0)");
-						
+	
+	
+	
 	var hexagon = svgContainer.selectAll("circle")
 				.data(theData)
 				.enter()
@@ -39,11 +43,11 @@
 				.append("circle")
 				.attr("cx", function(d){return d.x_axis;})
 				.attr("cy", function(d){return d.y_axis;})
-				.attr("r",2)
-				.style("fill","rgb(255,132,132)")
-				.attr("opacity",0.9)
+				.attr("r",3)
+				.style("fill",color)
+				.attr("opacity",0.3)
 				.attr("transform","translate(80,40)");
-	
+
 	function hex(d,size){
 		var line = "M";
 		var x1,y1;
@@ -74,8 +78,8 @@
 		x = 16* Math.sin(t)* Math.sin(t)* Math.sin(t);
 		y = 13*Math.cos(t)- 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
 		
-		x = x*2;
-		y = y*2;
+		x = x*10+ 350;
+		y = y*10 + 300;
 		array.push({"x_axis": x, "y_axis": y});
 		}
 		
@@ -112,7 +116,10 @@
 		return array;
 	}
 	
-	function getRandomColor() {
+	function getRandomColor(color1) {
+	if (color1!=null)
+		return color1;
+		
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
     for (var i = 0; i < 6; i++ ) {

@@ -25,7 +25,7 @@
 	
 	var size = 20;
 	
-	var height = 500, width = 500;
+	var height = 500, width = 1000;
 	//populate new data input with changing size, height and width;
 	//var theData = populateData(width,height,size);
 	var theData = heartData();
@@ -43,7 +43,7 @@
 				.append("circle")
 				.attr("cx", function(d){return d.x_axis;})
 				.attr("cy", function(d){return d.y_axis;})
-				.attr("r",2)
+				.attr("r",3)
 				.style("fill",color)
 				.attr("opacity",0.3)
 				.attr("transform","translate(80,40)");
@@ -78,8 +78,8 @@
 		x = 16* Math.sin(t)* Math.sin(t)* Math.sin(t);
 		y = 13*Math.cos(t)- 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
 		
-		x = x*3+25;
-		y = y*3 + 25;
+		x = x*10+ 350;
+		y = y*10 + 300;
 		array.push({"x_axis": x, "y_axis": y});
 		}
 		
