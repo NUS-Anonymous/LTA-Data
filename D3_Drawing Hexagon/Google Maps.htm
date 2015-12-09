@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Google Maps</title>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAPDUET0Qt7p2VcSk6JNU1sBSM5jMcmVqUpI7aqV44cW1cEECiThQYkcZUPRJn9vy_TWxWvuLoOfSFBw" type="text/javascript"></script>
+    <script src="eshapes.js" type="text/javascript"></script>
+  </head>
+  <body onunload="GUnload()">
+
+
+    <div id="map" style="width: 800px; height: 800px;"></div>
+    <a href="eshapes.htm">Back to the tutorial page</a>
+
+    <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b> 
+      However, it seems JavaScript is either disabled or not supported by your browser. 
+      To view Google Maps, enable JavaScript by changing your browser options, and then 
+      try again.
+    </noscript>
+ 
+
+    <script type="text/javascript">
+    //<![CDATA[
+    
+    if (GBrowserIsCompatible()) {
+
+
+      var map = new GMap2(document.getElementById("map"));
+
+      map.setCenter(new GLatLng(43,-79.5),8);
+      map.addControl(new GMapTypeControl());
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GScaleControl());
+
+      // === Circle ===
+      var point = new GLatLng(44,-81);
+      map.addOverlay(GPolyline.Circle(point,30000));
+
+      // === Square ===
+      var point = new GLatLng(44,-80);
+      map.addOverlay(GPolyline.RegularPoly(point,30000,4,0,"#ff0000",8,1));
+
+      // === 7-pointed star ===
+      var point = new GLatLng(44,-79);
+      map.addOverlay(GPolyline.Star(point,30000,10000,7,0,"#0000ff",3,1));
+
+      // ==- Tilted rectangles ===
+      var point = new GLatLng(44,-78);
+      map.addOverlay(GPolygon.Shape(point,50000,10000,50000,10000,-60,4,"#000000",3,1,"#ffffff",1,{},true));
+      map.addOverlay(GPolyline.Shape(point,50000,10000,50000,10000,30,4,"#000000",3,1,{},true));
+
+      // === Filled Circle ===
+      var point = new GLatLng(43,-81);
+      map.addOverlay(GPolygon.Circle(point,30000,"#000000",3,1,"#00ff00",0.5));
+
+      // === Pentagon === 
+      var point = new GLatLng(43,-80);
+      map.addOverlay(GPolygon.RegularPoly(point,30000,5,0,"#008800",4,1,"#00ff00",0.5));
+
+      // === 5-pointed Star ===
+      var point = new GLatLng(43,-79);
+      map.addOverlay(GPolygon.Star(point,30000,10000,5,0,"#000000",3,1,"#ff0000",0.5));
+
+      // === Ellipse ===
+      var point = new GLatLng(43,-78);
+      map.addOverlay(GPolygon.Ellipse(point,30000,10000,-45,"#000000",2,1,"#ffff00",0.5));
+
+      // === Elliptical flash ===
+      var point = new GLatLng(42,-81);
+      map.addOverlay(GPolygon.Shape(point,50000,25000,45000,20000,60,100,"#FF0000",3,1,"#FFFF00",0.5));
+
+      // === Pentagram ===
+      var point = new GLatLng(42,-80);
+      map.addOverlay(GPolyline.Shape(point,30000,30000,-30000,-30000,0,10,"#000000",3,1));
+
+      // === Hexagonal grid ===
+      var point = new GLatLng(42,-78.8);
+      map.addOverlay(GPolygon.RegularPoly(point,25000,6,90,"#000000",1,1,"#00ff00",0.5));
+      var d=2*25000*Math.cos(Math.PI/6);
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d, 30),25000,6,90,"#000000",1,1,"#00ffff",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d, 90),25000,6,90,"#000000",1,1,"#ffff00",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d,150),25000,6,90,"#000000",1,1,"#00ffff",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d,210),25000,6,90,"#000000",1,1,"#ffff00",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d,270),25000,6,90,"#000000",1,1,"#ffff00",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(point,d,330),25000,6,90,"#000000",1,1,"#ffff00",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(EOffsetBearing(point,d,30),d,90),25000,6,90,"#000000",1,1,"#ff0000",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(EOffsetBearing(point,d,150),d,90),25000,6,90,"#000000",1,1,"#0000ff",0.5));
+      map.addOverlay(GPolygon.RegularPoly(EOffsetBearing(EOffsetBearing(point,d,90),d,90),25000,6,90,"#000000",1,1,"#00ff00",0.5));
+
+    }
+    
+    // This Javascript is based on code provided by the
+    // Community Church Javascript Team
+    // http://www.bisphamchurch.org.uk/   
+    // http://econym.org.uk/gmap/
+
+    //]]>
+    </script>
+  </body>
+
+</html>
+
+
+
+
