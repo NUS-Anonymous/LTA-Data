@@ -65,7 +65,7 @@
 				
 			  var marker = layer.selectAll("svg")
 				  .data(d3.entries(data1))
-				.each(transform)
+				.each(transform) // update the old point
 				.enter().append("svg:svg")
 				.each(transform)
 				.attr("class", "marker");
@@ -75,7 +75,7 @@
 				  .attr("r", 4.5)
 				  .attr("cx", padding)
 				  .attr("cy", padding);
-
+			  
 			  // Add a label.
 			  marker.append("svg:text")
 				  .attr("x", padding + 7)
