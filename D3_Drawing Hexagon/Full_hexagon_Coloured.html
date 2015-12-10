@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+	<style>
+	svg.path {
+	stroke-width: 2;
+	fill : none;
+	color : red;}
+	</style>
+	</head>
+	<body>
+	<script>
+	//Auto refresh your page
+	//refresh();
+	function refresh(){
+		setTimeout(function(){
+		window.location.reload(1);
+		}, 500);
+	}
+	</script>
+	<script>
+		
+		var size = 20;
+		
+		var height = 500, width = 500;
+		//populate new data input with changing size, height and width;
+		var theData = populateData(width,height,size);
+		
+		var svgContainer = d3.select("body").append("svg")
+							.attr("width",width)
+							.attr("height",height)
+							.attr("transform", "translate(80,0)");
+							
+		var hexagon = svgContainer.selectAll("path")
+					.data(theData)
+					.enter()
+					.append("path")
+					.attr("d",function(d){return hex(d,size);})
+					.attr("stroke-width",2)
+					.attr("stroke","red")
+					.attr("fill",function(){return getRandomColor();})
+					//.on("click",function(){d3.select(this).remove();});
+		
+	function hex(d,size){
+		var line = "M";
+		var x1,y1;
+		
+		for (var i = 0; i<6; i++){
+			
+			
+			var angle_deg = 60*i+30;
+			var angle_rad = Math.PI/180* angle_deg;
+			
+			var point1 = d.x_axis + size* Math.cos(angle_rad);
+			var point2 = d.y_axis + size*Math.sin(angle_rad);
+			if (i==0){
+				x1 = point1;
+				y1 = point2;}
+			
+			line = line+ " " + point1 + " " + point2+ " " + "L";
+			}
+			line = line+ " " + x1 + " " + y1;
+
+		return line;
+	}
+	
+	function populateData(gridWidth,gridHeight,size){
+		var x = 0, y = 0;
+		var height = size*2;
+		var vert = height * 3/4;
+		var width = Math.sqrt(3)/2 * height;
+		var horiz = width;
+		
+		var temp_row = 0;
+		var temp_col = 0;
+		var array = [];
+		array.push({"x_axis": 0, "y_axis": 0});
+		for (var row = 0; row<parseInt(gridHeight/size);row++){
+			if (row %2 == 0)
+				temp_col = 0	;
+			if (row %2 != 0)
+				temp_col = 0 - width/2;
+			for (var col = 0; col<parseInt(gridWidth/size);col++){
+				temp_col += width;
+				array.push({"x_axis": temp_col, "y_axis": temp_row});
+			}
+			temp_row +=vert;
+		}
+		return array;
+	}
+	
+	function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+	</script>
+	</body>
+
+
+</html>

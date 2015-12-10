@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A D3 map</title>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="neighborhoods.js"></script>
+  <script src = "rodents.js"></script>
+  <style>
+  path {
+  fill:#d1c9b8;}
+  </style>
+</head>
+<body>
+  <script>
+var width = 2000,
+    height = 2000;
+
+var svg = d3.select( "body" )
+  .append( "svg" )
+  .attr( "width", width )
+  .attr( "height", height )
+  .attr("style","border:5px solid red");
+
+var g = svg.append( "g" );
+
+var albersProjection = d3.geo.albers()
+  .scale( 190000 )
+  .rotate( [71.090,0] )
+  .center( [0, 42.313] )
+  .translate( [width/2,height/2] );
+
+var geoPath =  d3.geo.path()
+    .projection( albersProjection );
+
+	g.selectAll( "path" )
+	.data( neighborhoods_json.features )
+	.enter()
+	.append( "path" )
+	.attr( "d", geoPath );
+var rodents = svg.append("g");
+
+rodents.selectAll("path")
+	.data(rodents_json.features)
+	.enter()
+	.append("path")
+	.attr("fill","#900")
+	.attr("stroke","#999")
+	.attr("d",geoPath);
+	
+  </script>
+</body>
+</html>
