@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "BUS_STOP_N": "28521", "BUS_ROOF_N": "B05", "LOC_DESC": "BLK 457" }, "geometry": { "type": "Point", "coordinates": [ 103.72110869761001, 1.350983295716035 ] } },
+{ "type": "Feature", "properties": { "BUS_STOP_N": "21319", "BUS_ROOF_N": "B13", "LOC_DESC": "OPP TRACTOR RD" }, "geometry": { "type": "Point", "coordinates": [ 103.70980794697725, 1.323706031323178 ] } }
+]
+}

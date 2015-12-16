@@ -12,7 +12,7 @@
 	<body>
 	<script>
 	//Auto refresh your page
-	refresh();
+	//refresh();
 	function refresh(){
 		setTimeout(function(){
 		window.location.reload(1);
@@ -20,34 +20,27 @@
 	}
 	</script>
 	<script>
-	var color = getRandomColor(color);
-	console.log(color);
-	
-	var size = 20;
-	
-	var height = 500, width = 1000;
-	//populate new data input with changing size, height and width;
-	//var theData = populateData(width,height,size);
-	var theData = heartData();
-	var svgContainer = d3.select("body").append("svg")
-						.attr("width",width)
-						.attr("height",height)
-						.attr("transform", "translate(80,0)");
-	
-	
-	
-	var hexagon = svgContainer.selectAll("circle")
-				.data(theData)
-				.enter()
-				.append("g")
-				.append("circle")
-				.attr("cx", function(d){return d.x_axis;})
-				.attr("cy", function(d){return d.y_axis;})
-				.attr("r",3)
-				.style("fill",color)
-				.attr("opacity",0.3)
-				.attr("transform","translate(80,40)");
-
+		
+		var size = 20;
+		
+		var height = 500, width = 500;
+		//populate new data input with changing size, height and width;
+		var theData = populateData(width,height,size);
+		
+		var svgContainer = d3.select("body").append("svg")
+							.attr("width",width)
+							.attr("height",height);
+							
+		var hexagon = svgContainer.selectAll("path")
+					.data(theData)
+					.enter()
+					.append("path")
+					.attr("d",function(d){return hex(d,size);})
+					.attr("stroke-width",2)
+					.attr("stroke","red")
+					.attr("fill",function(){return getRandomColor();})
+					//.on("click",function(){d3.select(this).remove();});
+		
 	function hex(d,size){
 		var line = "M";
 		var x1,y1;
@@ -58,8 +51,8 @@
 			var angle_deg = 60*i+30;
 			var angle_rad = Math.PI/180* angle_deg;
 			
-			var point1 = d.x_axis + size* Math.cos(angle_rad);
-			var point2 = d.y_axis + size*Math.sin(angle_rad);
+			var point1 =  size* Math.cos(angle_rad)/d.x_axis;
+			var point2 = d.y_axis + size*Math.sin(angle_rad)/d.y_axis;
 			if (i==0){
 				x1 = point1;
 				y1 = point2;}
@@ -68,26 +61,6 @@
 			}
 			line = line+ " " + x1 + " " + y1;
 
-		return line;
-	}
-	function heartData(){
-		var x,y,t;
-		var array = [];
-	
-		for (var t = 0; t<1000;t++ ){
-		x = 16* Math.sin(t)* Math.sin(t)* Math.sin(t);
-		y = 13*Math.cos(t)- 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t);
-		
-		x = x*10+ 350;
-		y = 500-(y*10 + 300);
-		array.push({"x_axis": x, "y_axis": y});
-		}
-		
-	return array;
-	}
-	function drawHeart(data){
-		var line = "L";
-			line = line+ " " + data.x_axis + " " + data.y_axis + " ";
 		return line;
 	}
 	
@@ -104,9 +77,9 @@
 		array.push({"x_axis": 0, "y_axis": 0});
 		for (var row = 0; row<parseInt(gridHeight/size);row++){
 			if (row %2 == 0)
-				temp_col = 0;
+				temp_col = 0	;
 			if (row %2 != 0)
-				temp_col = 0 - width/2 ;
+				temp_col = 0 - width/2;
 			for (var col = 0; col<parseInt(gridWidth/size);col++){
 				temp_col += width;
 				array.push({"x_axis": temp_col, "y_axis": temp_row});
@@ -116,10 +89,7 @@
 		return array;
 	}
 	
-	function getRandomColor(color1) {
-	if (color1!=null)
-		return color1;
-		
+	function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
     for (var i = 0; i < 6; i++ ) {
