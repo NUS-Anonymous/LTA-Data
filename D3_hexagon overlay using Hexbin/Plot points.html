@@ -65,11 +65,8 @@ var map = new google.maps.Map(d3.select("#map").node(), {
 	var centers = [];
 	var radius = 0.5;
 	var countryWidth = 12;
-	var countryHeight = 8;
+	var countryHeight = 10;
 	var hex =[];
-	
-	
-	
 	
 	generatePoint(new google.maps.LatLng(1.352083, 103.81983600000001),radius);
 	
@@ -201,8 +198,9 @@ overlay.onAdd = function () {
         .attr("width", "100%")
         .attr("class", "markers")
         .attr("id", "layer")
-
-    layer.node().style.width = "1366px";
+	
+	layer.node().style.height ="100%";
+    layer.node().style.width = "100%";
     layer.node().parentNode.style.width = "100%";
     layer.node().parentNode.style.height = "100%";
     layer.node().parentNode.parentNode.style.width = "100%";
@@ -211,7 +209,8 @@ overlay.onAdd = function () {
     layer.node().parentNode.parentNode.parentNode.style.height = "100%";
     layer.node().parentNode.parentNode.parentNode.parentNode.style.width = "100%";
     layer.node().parentNode.parentNode.parentNode.parentNode.style.height = "100%";
-
+	layer.node().parentNode.parentNode.parentNode.parentNode.parentNode.style.width = "100%";
+    layer.node().parentNode.parentNode.parentNode.parentNode.parentNode.style.height = "100%";
 
     var svg = layer.append('svg')
         .attr('x', 0)
