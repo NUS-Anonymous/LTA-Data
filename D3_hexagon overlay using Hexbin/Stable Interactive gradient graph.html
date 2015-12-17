@@ -81,54 +81,51 @@
 	  <body>
 	 
 	  <div id="floating-panel">
-	   <form id="frm1" METHOD="GET">
-		  Center <input type="text" name="origin"VALUE="">
-		  Hex Rad <input type="text" name="rad"VALUE="">
-		  Width<input type="text" name="cwidth"VALUE="">
-		  Height<input type="text" name="cheight"VALUE="">
-		  <input type="button" onclick="refresh(this.form)" value="Submit">
+	   <form id="frm1" action="form_action.asp">
+		  Center <input type="text" name="origin">
+		  Hex Rad <input type="text" name="rad">
+		  Width<input type="text" name="cwidth">
+		  Height<input type="text" name="cheight">
+		  <input type="button" onclick="myFunction()" value="Submit">
 		</form>
       
     </div>
     <div id="map"></div>
 	
-	<div id="map"></div>
-	<script type="text/javascript">
-	
-	plotGraph(new google.maps.LatLng(1.352083, 103.81983600000001),1,12,10);
-	
-	function refresh(form){
-		var center = form.origin.value;
-		var rad = form.rad.value;
-		var w = form.cwidth.value;
-		var h = form.cheight.value;
-		if (center.length ==0)
-			center = new google.maps.LatLng(1.352083, 103.81983600000001);
-		if (rad.length==0)
-			rad = 1;
-		if (w.length ==0)
-			w = 12;
-		if (h.length ==0)
-			h =10;
+		<script type="text/javascript">
+			function BusStopLocation(){
+				initMap(busstop,0);
+			}
+			function MRTExit(){
+				initMap(mrt,0);}
 			
-		console.log(new google.maps.LatLng(center));
-		console.log(rad);
-		console.log(w);
-		console.log(h);
+			function TaxiStand(){
+				initMap(taxiStand,0);
+			}
+			function PassengerPickupBay(){
+				initMap(passengerPickupBay,1);
+			}
+			function ERP(){
+				initMap(erp,1);
+			}
 		
-		plotGraph(center,rad,w,h);
-	}
-	
-	
-	function plotGraph(cc,r,w,h){
-				var countryCenter = cc;
+			
+		</script>
+		
+		<div id="map"></div>
+	<script type="text/javascript">
+	plotGraph(1,1,1,1);
+	function plotGraph(cc,r,h,w){
+				var countryCenter = new google.maps.LatLng(1.352083, 103.81983600000001);
 				var centers = [];
-				var radius = r;
-				var countryWidth = w; // Singapore use 12km
-				var countryHeight = h; // Singapore use 10km
+				var radius = 0.5;
+				var countryWidth = 6; // Singapore use 12km
+				var countryHeight = 5; // Singapore use 10km
 				var hex =[];
 				var centerPoint = [];
-				var initialZoomLevel = 12;
+				var initialZoomLevel = 14;
+				
+				
 				
 			var map = new google.maps.Map(d3.select("#map").node(), {
 				zoom: initialZoomLevel,

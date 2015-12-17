@@ -95,7 +95,7 @@
 	<div id="map"></div>
 	<script type="text/javascript">
 	
-	plotGraph(new google.maps.LatLng(1.352083, 103.81983600000001),1,12,10);
+	//plotGraph(new google.maps.LatLng(1.352083, 103.81983600000001),1,6,5);
 	
 	function refresh(form){
 		var center = form.origin.value;
@@ -107,9 +107,9 @@
 		if (rad.length==0)
 			rad = 1;
 		if (w.length ==0)
-			w = 12;
+			w = 6;
 		if (h.length ==0)
-			h =10;
+			h =5;
 			
 		console.log(new google.maps.LatLng(center));
 		console.log(rad);
@@ -128,7 +128,7 @@
 				var countryHeight = h; // Singapore use 10km
 				var hex =[];
 				var centerPoint = [];
-				var initialZoomLevel = 12;
+				var initialZoomLevel = 14;
 				
 			var map = new google.maps.Map(d3.select("#map").node(), {
 				zoom: initialZoomLevel,
