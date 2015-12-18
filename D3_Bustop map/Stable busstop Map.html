@@ -48,8 +48,8 @@
 
 	// Load the station data. When the data comes back, create an overlay.
 		d3.json("BusStopLocation.json", function(data1) {
-		var overlay = new google.maps.OverlayView();
 		data1 = data1.features;
+		var overlay = new google.maps.OverlayView();
 		var numberOfBusStop= data1.length;
 		
 	  // Add the container when the overlay is added to the map.

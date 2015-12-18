@@ -5,6 +5,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+		<script type="text/javascript" src="Hexagon.js"></script>
 		<style type="text/css">
 		#floating-panel {
 	  position: absolute;
@@ -40,7 +41,7 @@
            //fill: none;
            stroke: red;
 		   stroke-width:1;
-		   opacity: 0.3;
+		   opacity: 0.5;
        }
        .markers {
            position: absolute;
@@ -111,10 +112,7 @@
 		if (h.length ==0)
 			h =10;
 			
-		console.log(new google.maps.LatLng(center));
-		console.log(rad);
-		console.log(w);
-		console.log(h);
+		
 		
 		plotGraph(center,rad,w,h);
 		
@@ -243,22 +241,29 @@
 							  return point;
 						} // end of generatePointCenter
 					
+			
 					
 					// Generate hexagon for each center point data
 					var hexData = [];
-					for (var i = 0; i<hex.length; i++){
-					var data = [];
-					for (var j = 0; j<hex[i].length;j++){
-						var temp = (hex[i])[j];
-						console.log(temp);
-						data.push({density: i, lng: temp.lng(), lat: temp.lat()});
+					var statsDataArray =[];
+					for (var i = 0 ; i<hex.length;i++){
+					 statsDataArray.push(statsData.center[i].density);
 					}
+					
+					
+					for (var i = 0; i<hex.length; i++){
+						var data = [];
+						for (var j = 0; j<hex[i].length;j++){
+							var temp = (hex[i])[j];
+							data.push({density: statsDataArray[i], lng: temp.lng(), lat: temp.lat()});
+						}
 					hexData.push(data);
-				}
-				var stats;
+					}
+				
+
 				
 			
-			toFile(centerPoint);
+			//toFile(centerPoint);
 			// Exporting
 				function toFile(centerPoint){
 							var data = [["Index","lat","lng","density"]];
@@ -379,7 +384,13 @@
 					function getRandomColor(n) {
 					n = n[0];
 					n = n.density % 100;
-					n = parseInt(n);
+					console.log(n);
+					var NewMax = 100;
+					var NewMin = 20;
+					var OldMax = 35;
+					var OldMin = 0;
+					var OldValue = n;
+					n = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
 					var R = (255 * n) / 100
 					var G = (255 * (100 - n)) / 100 
 					var B = 0
