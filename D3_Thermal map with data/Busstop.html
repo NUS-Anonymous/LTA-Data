@@ -5,7 +5,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
-		<script type="text/javascript" src="Hexagon-MRT.js"></script>
+		<script type="text/javascript" src="Hexagon-busstop.js"></script>
 		<style type="text/css">
 		#floating-panel {
 	  position: absolute;
@@ -41,7 +41,7 @@
            //fill: none;
            stroke: red;
 		   stroke-width:1;
-		   opacity: 0.3;
+		   opacity: 0.5;
        }
        .markers {
            position: absolute;
@@ -263,7 +263,7 @@
 
 				
 			
-			//toFile(centerPoint);
+			toFile(centerPoint);
 			// Exporting
 				function toFile(centerPoint){
 							var data = [["Index","lat","lng","density"]];
@@ -382,18 +382,17 @@
 					
 				// Taking in Density of a center to 	
 					function getRandomColor(n) {
-					console.log(n);
-					var a = n[0];
-					a = a.density;
 					n = n[0];
 					n = n.density % 100;
-					//console.log(n);
 					var NewMax = 100;
 					var NewMin = 20;
 					var OldMax = 35;
 					var OldMin = 0;
 					var OldValue = n;
-					n = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+					if (n != 0)
+						n = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+					else 
+						n = 20
 					var R = (255 * n) / 100
 					var G = (255 * (100 - n)) / 100 
 					var B = 0
