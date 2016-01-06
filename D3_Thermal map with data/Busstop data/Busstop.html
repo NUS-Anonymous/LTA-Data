@@ -40,7 +40,7 @@
        path {
            stroke: red;
 		   stroke-width:1;
-		   opacity: 0.5;
+		   opacity: 0.3;
        }
        .markers {
            position: absolute;
@@ -136,9 +136,6 @@
 
 					generatePoint(countryCenter,radius);
 					
-					function calcDistance(p1, p2){
-								  return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-								}
 					
 					function generatePoint(center,radius){
 									
@@ -262,7 +259,7 @@
 						console.log(hexData[0]);
 					
 				
-				toFile(centerPoint);
+				// toFile(centerPoint);
 				// Exporting
 					function toFile(centerPoint){
 								var data = [["Index","lat","lng","density"]];
